@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  cloudpoint_service:
+    build: ./cloudpoint-service
+    command: python ./app/main.py
+    volumes:
+      - ./cloudpoint-service/:/app/
+    ports:
+      - "8003:8003"
+#  pcd_service:
+#    build: ./pcd-service
+#    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
+#    volumes:
+#      - ./pcd-service/:/app/
+#    ports:
+#      - "8001:8001"
+#      - "8001:8000"
+  video_service:
+    build: ./video-service
+    command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8002
+    volumes:
+      - ./video-service/:/app/
+    ports:
+      - "8002:8002"
+#      - "8002:8000"
+#  nginx:
+#    image: nginx:latest
+#    ports:
+#      - "8090:8090"
+#    volumes:
+#      - ./nginx_config.conf:/etc/nginx/conf.d/default.conf
+#    depends_on:
+#      - pcd_service
+#      - video_service
